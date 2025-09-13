@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-3">Add Employee</h2>
+
+  <form [formGroup]="addForm" (ngSubmit)="onSubmit()" class="w-50 mx-auto">
+
+    <div class="mb-3">
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" formControlName="name" />
+      @if (addForm.get('name')?.invalid && addForm.get('name')?.touched) {
+        <small class="text-danger">Name is required.</small>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" formControlName="emailId" />
+      @if (addForm.get('emailId')?.invalid && addForm.get('emailId')?.touched) {
+        <small class="text-danger">Valid email is required.</small>
+      }
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Mobile</label>
+      <input type="text" class="form-control" formControlName="mobile" />
+      @if (addForm.get('mobile')?.invalid && addForm.get('mobile')?.touched) {
+        <small class="text-danger">Enter 10 digit mobile number.</small>
+      }
+    </div>
+        
+        <div class="mb-3">
+            <label class="form-label">Country</label>
+            <select class="form-select" formControlName="country">
+                <option value="" disabled>Select Country</option>
+                <option *ngFor="let c of countries" [value]="c.country">
+                {{ c.country }}
+                </option>
+            </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">State</label>
+      <input type="text" class="form-control" formControlName="state" />
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">District</label>
+      <input type="text" class="form-control" formControlName="district" />
+    </div>
+
+    <button type="submit" class="btn btn-success" [disabled]="addForm.invalid">
+      Add Employee
+    </button>
+    <button type="button" class="btn btn-secondary ms-2" (click)="cancelAction()">
+      Cancel
+    </button>
+  </form>
+</div>

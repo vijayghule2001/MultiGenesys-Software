@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-3">Edit Employee</h2>
+
+  @if (loading) {
+    <div class="text-center">
+      <div class="spinner-border text-primary"></div>
+      <p>Loading employee...</p>
+    </div>
+  }
+
+  @if (!loading) {
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()" class="w-50 mx-auto">
+
+      <div class="mb-3">
+        <label class="form-label">Name</label>
+        <input type="text" class="form-control" formControlName="name" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" formControlName="emailId" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Mobile</label>
+        <input type="text" class="form-control" formControlName="mobile" />
+      </div>
+
+         <!-- Country Dropdown -->
+     <div class="mb-3">
+        <label class="form-label">Country</label>
+        <select class="form-select" formControlName="country">
+            <option value="" disabled>Select Country</option>
+            <option *ngFor="let c of countries" [value]="c.country">{{ c.country }}</option>
+        </select>
+    </div>
+
+
+      <div class="mb-3">
+        <label class="form-label">State</label>
+        <input type="text" class="form-control" formControlName="state" />
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">District</label>
+        <input type="text" class="form-control" formControlName="district" />
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="editForm.invalid">Update Employee</button>
+      <button type="button" class="btn btn-secondary ms-2" (click)="cancelAction()" >Cancel</button>
+    </form>
+  }
+</div>
+

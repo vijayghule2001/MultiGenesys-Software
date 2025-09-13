@@ -1,0 +1,67 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-3">Employee List</h2>
+
+  <!-- Search Box -->
+  <div class="row mb-3">
+    <div class="col-md-4 offset-md-4">
+      <input 
+        type="text" 
+        class="form-control" 
+        
+        placeholder="Search by Employee ID..." 
+        [(ngModel)]="searchId"
+        (input)="searchEmployee()" />
+    </div>
+  </div>
+
+  @if (loading) {
+    <div class="text-center">
+      <div class="spinner-border text-primary"></div>
+      <p>Loading employees...</p>
+    </div>
+  }
+
+  @if (!loading && visibleEmployees.length > 0) {
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Sr No</th>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Mobile</th>
+          <th>Country</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (emp of visibleEmployees; let i = $index; track emp.id) {
+          <tr>
+            <td>{{ i + 1 }}</td>
+            <td>{{ emp.id }}</td>
+            <td>{{ emp.name }}</td>
+            <td>{{ emp.emailId }}</td>
+            <td>{{ emp.mobile }}</td>
+            <td>{{ emp.country }}</td>
+            <td>
+              <button class="btn btn-sm btn-primary me-2" (click)="editEmployee(emp.id)">Edit</button>
+              <button class="btn btn-sm btn-danger" (click)="deleteEmployee(emp.id)">Delete</button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    <div class="text-center mt-3">
+      @if (visibleEmployees.length < filteredEmployees.length) {
+        <button class="btn btn-success" (click)="loadMore()">Load More</button>
+      }
+    </div>
+  }
+
+  @if (!loading && visibleEmployees.length === 0) {
+    <div class="alert alert-warning text-center">
+      No employees found.
+    </div>
+  }
+</div>
